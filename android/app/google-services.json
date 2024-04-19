@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "834673530229",
+    "project_id": "malak-isi-project",
+    "storage_bucket": "malak-isi-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834673530229:android:de2803b985f0e683c0af3c",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFwER4YfGhlUGd3V03pBon_hNWUYCGNck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
