@@ -28,7 +28,7 @@ TextEditingController password = TextEditingController();
     
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-           Image.asset("images/login.png",height:80),
+           Image.asset("images/login.png",height:120),
           Container(height: 30,),
 
            const  Text(
@@ -75,7 +75,7 @@ TextEditingController password = TextEditingController();
             child: const Center(
               child: Text.rich(TextSpan(children: [
                 TextSpan(
-                  text: "Vous n avez pas de compte ? ",
+                  text: "Vous n'avez pas de compte ? ",
                 ),
                 TextSpan(
                     text: "Créer",

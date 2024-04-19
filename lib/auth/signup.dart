@@ -29,7 +29,7 @@ TextEditingController username = TextEditingController();
     
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-           Image.asset("images/signup.png",height:80),
+           Image.asset("images/signup.png",height:120),
           Container(height: 30,),
 
            const  Text(
