@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/components/custombuttonauth.dart';
 import 'package:flutter_application_2/components/textformfield.dart';
 
-class Signup extends StatefulWidget {
-  const Signup({super.key});
+class SignupUser extends StatefulWidget {
+  const SignupUser({super.key});
 
   @override
-  State<Signup> createState() => _SignupState();
+  State<SignupUser> createState() => _SignupUserState();
 }
 
-class _SignupState extends State<Signup> {
+class _SignupUserState extends State<SignupUser> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController username = TextEditingController();
@@ -113,7 +113,7 @@ class _SignupState extends State<Signup> {
                               email: email.text,
                               password: password.text,
                             );
-                            Navigator.of(context).pushReplacementNamed('login');
+                            Navigator.of(context).pushReplacementNamed('loginuser');
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'email-already-in-use') {
                               AwesomeDialog(
@@ -142,7 +142,7 @@ class _SignupState extends State<Signup> {
                   Container(height: 20),
                   InkWell(
                     onTap: () {
-                      Navigator.of(context).pushNamed("login");
+                      Navigator.of(context).pushNamed("loginuser");
                     },
                     child: const Center(
                       child: Text.rich(TextSpan(children: [

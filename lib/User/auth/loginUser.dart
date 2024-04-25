@@ -1,22 +1,22 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/components/custombuttonauth.dart';
 import 'package:flutter_application_2/components/textformfield.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
-class Signup extends StatefulWidget {
-  const Signup({super.key});
+class LoginUser extends StatefulWidget {
+  const LoginUser({super.key});
 
   @override
-  State<Signup> createState() => _SignupState();
+  State<LoginUser> createState() => _LoginUserState();
 }
 
-class _SignupState extends State<Signup> {
+class _LoginUserState extends State<LoginUser> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-  TextEditingController username = TextEditingController();
 
   GlobalKey<FormState> formState = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,14 +30,17 @@ class _SignupState extends State<Signup> {
             Form(
               key: formState,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                //   Container(height: 20,),
+
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset("images/signup.png", height: 120),
+                  Image.asset("images/login.png", height: 110),
                   Container(
                     height: 30,
                   ),
                   const Text(
-                    'Inscription',
+                    'Authentification',
+                    // style: Theme.of(context).textTheme.headlineMedium,
                     style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -46,25 +49,6 @@ class _SignupState extends State<Signup> {
                   Container(
                     height: 30,
                   ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    child: const Text(
-                      "Nom d'utilisateur",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                    ),
-                  ),
-                  Container(height: 10),
-                  CustomTextForm(
-                      hinttext: "ُEntrer votre nom d'utilisateur",
-                      mycontroller: username,
-                      sec: false,
-                      validator: (val) {
-                        if (val == "") {
-                          return "obligatoire";
-                        }
-                      }),
-                  Container(height: 10),
                   Container(
                     alignment: Alignment.topLeft,
                     child: const Text(
@@ -102,38 +86,44 @@ class _SignupState extends State<Signup> {
                           return "obligatoire";
                         }
                       }),
-                  Container(height: 20),
+                  Container(
+                    margin: const EdgeInsets.only(top: 10, bottom: 20),
+                    alignment: Alignment.topRight,
+                    child: const Text(
+                      "Mot de passe oublié ?",
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
                   CustomButtonAuth(
-                      title: "Créer",
+                      title: "Se connecter",
                       onPressed: () async {
                         if (formState.currentState!.validate()) {
                           try {
                             final credential = await FirebaseAuth.instance
-                                .createUserWithEmailAndPassword(
-                              email: email.text,
-                              password: password.text,
-                            );
-                            Navigator.of(context).pushReplacementNamed('login');
+                                .signInWithEmailAndPassword(
+                                    email: email.text, password: password.text);
+
+                            Navigator.of(context).pushReplacementNamed('homeuser');
                           } on FirebaseAuthException catch (e) {
-                            if (e.code == 'email-already-in-use') {
+                            if (e.code == 'user-not-found') {
                               AwesomeDialog(
                                 context: context,
                                 dialogType: DialogType.error,
                                 animType: AnimType.rightSlide,
-                                title: 'Erreur',
-                                desc: 'Un compte avec cet email existe déja.',
+                                title: 'Error',
+                                desc: 'Email non existant.',
                               ).show();
-                            } else if (e.code == 'weak-password') {
+                            } else if (e.code == 'wrong-password') {
                               AwesomeDialog(
                                 context: context,
                                 dialogType: DialogType.error,
                                 animType: AnimType.rightSlide,
                                 title: 'Erreur',
-                                desc: 'Mot de passe fragile.',
+                                desc: 'Mot de passe érroné.',
                               ).show();
                             }
-                          } catch (e) {
-                            print(e);
                           }
                         } else {
                           print("Non Valide");
@@ -142,15 +132,15 @@ class _SignupState extends State<Signup> {
                   Container(height: 20),
                   InkWell(
                     onTap: () {
-                      Navigator.of(context).pushNamed("login");
+                      Navigator.of(context).pushReplacementNamed("signupuser");
                     },
                     child: const Center(
                       child: Text.rich(TextSpan(children: [
                         TextSpan(
-                          text: "Vous avez déja un compte ? ",
+                          text: "Vous n'avez pas de compte ? ",
                         ),
                         TextSpan(
-                            text: "Se connecter",
+                            text: "Créer",
                             style: TextStyle(
                                 color: Colors.orange,
                                 fontWeight: FontWeight.bold)),
@@ -161,7 +151,6 @@ class _SignupState extends State<Signup> {
               ),
             ),
           ])),
-
       //  body: Container(),
     );
   }

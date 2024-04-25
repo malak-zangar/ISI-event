@@ -43,6 +43,9 @@ dependencies:
   firebase_ui_auth: ^1.13.1
   firebase_storage: ^11.7.2
   firebase_messaging: ^14.8.2
+  passwordfield: ^0.2.0
+  awesome_dialog: ^3.2.0
+  image_picker: ^1.1.0
 
 dev_dependencies:
   flutter_test:
