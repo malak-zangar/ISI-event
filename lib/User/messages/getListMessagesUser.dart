@@ -165,8 +165,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class getListMessagesUser extends StatelessWidget {
   const getListMessagesUser({Key? key}) : super(key: key);
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -174,8 +172,8 @@ class getListMessagesUser extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         leading: IconButton(
           onPressed: () async {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                "homeuser", (route) => false);
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil("homeuser", (route) => false);
           },
           icon: Icon(Icons.keyboard_return),
         ),
@@ -184,8 +182,8 @@ class getListMessagesUser extends StatelessWidget {
           IconButton(
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  "loginuser", (route) => false);
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil("loginuser", (route) => false);
             },
             icon: Icon(Icons.exit_to_app),
           )
@@ -220,10 +218,10 @@ class getListMessagesUser extends StatelessWidget {
                 }
 
                 // Obtenez les catégories de la collection de l'utilisateur authentifié
-               // var userCategories = getUserCategories();
+                // var userCategories = getUserCategories();
                 final messages = snapshot.data!.docs;
 
-           return FutureBuilder<List<String>>(
+                return FutureBuilder<List<String>>(
                   future: getUserCategories(),
                   builder: (context, userCategoriesSnapshot) {
                     if (userCategoriesSnapshot.connectionState ==
@@ -239,79 +237,80 @@ class getListMessagesUser extends StatelessWidget {
                       return userCategories.contains(message['categorie']);
                     }).toList();
 
-                return GridView.builder(
-                  itemCount: filteredMessages.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisExtent: 165,
-                  ),
-                  itemBuilder: (context, i) {
-                    Color cardColor;
-                    if (filteredMessages[i]['priorite'] == 'Elevée') {
-                      cardColor = Color.fromARGB(255, 243, 226, 148);
-                    } else if (filteredMessages[i]['priorite'] == 'Moyenne') {
-                      cardColor = Color.fromARGB(255, 235, 222, 174);
-                    } else {
-                      cardColor = Color.fromARGB(255, 243, 238, 220);
-                    }
+                    return GridView.builder(
+                      itemCount: filteredMessages.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisExtent: 165,
+                      ),
+                      itemBuilder: (context, i) {
+                        Color cardColor;
+                        if (filteredMessages[i]['priorite'] == 'Elevée') {
+                          cardColor = Color.fromARGB(255, 243, 226, 148);
+                        } else if (filteredMessages[i]['priorite'] ==
+                            'Moyenne') {
+                          cardColor = Color.fromARGB(255, 235, 222, 174);
+                        } else {
+                          cardColor = Color.fromARGB(255, 243, 238, 220);
+                        }
 
-                    return InkWell(
-                      onTap: () {
-                        _showImageDialog(context, filteredMessages[i]['imageUrl']);
-                      },
-                      child: SingleChildScrollView(
-                        child: Card(
+                        return Card(
                           color: cardColor,
-                          child: Container(
-                            padding: EdgeInsets.all(10),
-                            child: Column(
-                              children: [
-                                Image.network(
-                                  filteredMessages[i]['imageUrl'],
-                                  height: 100,
-                                  width: 100,
+                          child: InkWell(
+                            onTap: () {
+                              _showImageDialog(
+                                  context, filteredMessages[i]['imageUrl']);
+                            },
+                            child: SingleChildScrollView(
+                              child: Container(
+                                padding: EdgeInsets.all(10),
+                                child: Column(
+                                  children: [
+                                    Image.network(
+                                      filteredMessages[i]['imageUrl'],
+                                      height: 100,
+                                      width: 100,
+                                    ),
+                                    Text(
+                                      "à : ${filteredMessages[i]['categorie']}",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Divider(
+                                      color: Color.fromARGB(255, 196, 195, 197),
+                                    ),
+                                    Text(
+                                      "${filteredMessages[i]['objet']}",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      "${filteredMessages[i]['corps']}",
+                                      style: TextStyle(fontSize: 16),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                    Text(
+                                      "${filteredMessages[i]['date']}",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                      textAlign: TextAlign.end,
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  "à : ${filteredMessages[i]['categorie']}",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                Divider(
-                                  color: Color.fromARGB(255, 196, 195, 197),
-                                ),
-                                Text(
-                                  "${filteredMessages[i]['objet']}",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                Text(
-                                  "${filteredMessages[i]['corps']}",
-                                  style: TextStyle(fontSize: 16),
-                                  textAlign: TextAlign.start,
-                                ),
-                                Text(
-                                  "${filteredMessages[i]['date']}",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontStyle: FontStyle.italic,
-                                  ),
-                                  textAlign: TextAlign.end,
-                                ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     );
                   },
-                );
-              },
-                  
                 );
               },
             ),
@@ -320,6 +319,7 @@ class getListMessagesUser extends StatelessWidget {
       ),
     );
   }
+
   void _showImageDialog(BuildContext context, String imageUrl) {
     showDialog(
       context: context,
@@ -335,21 +335,21 @@ class getListMessagesUser extends StatelessWidget {
       },
     );
   }
-Future<List<String>> getUserCategories() async {
-  // Récupérez l'ID de l'utilisateur authentifié
-  var userId = FirebaseAuth.instance.currentUser?.uid;
 
-  // Obtenez les catégories de la collection de l'utilisateur authentifié
-  var collectionRef = FirebaseFirestore.instance.collection("collection");
-  var snapshot = await collectionRef.where("user", isEqualTo: userId).get();
+  Future<List<String>> getUserCategories() async {
+    // Récupérez l'ID de l'utilisateur authentifié
+    var userId = FirebaseAuth.instance.currentUser?.uid;
 
-  // Convertir les données dynamiques en une liste de chaînes
-  List<String> categories = [];
-  snapshot.docs.forEach((doc) {
-    categories.add(doc['category']);
-  });
+    // Obtenez les catégories de la collection de l'utilisateur authentifié
+    var collectionRef = FirebaseFirestore.instance.collection("collection");
+    var snapshot = await collectionRef.where("user", isEqualTo: userId).get();
 
-  return categories;
+    // Convertir les données dynamiques en une liste de chaînes
+    List<String> categories = [];
+    snapshot.docs.forEach((doc) {
+      categories.add(doc['category']);
+    });
+
+    return categories;
+  }
 }
-}
-

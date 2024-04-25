@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,12 +8,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/components/custombuttonauth.dart';
 import 'package:flutter_application_2/components/customtextfieldadd.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 class AddMessage extends StatefulWidget {
   const AddMessage({super.key});
 
   @override
   State<AddMessage> createState() => _AddMessageState();
+}
+
+sendNotif() async{
+var headers = {
+  'Accept': '"/"',
+  'Content-type': 'application/json',
+  'Authorization': 'key=AAAAdY4Z3t8:APA91bGsedQoogY21cGoSQY-kdyWtQB8Vyr4fodVxNOdPpHb8D9vi6r9H4lLFp_DsMIo0h8UW2ptaD2RCUmS0oUmS65pRYfo60XzCIpHUxtjXHbiYW3U29VL_Ta9R6gY-R_6MWWQfoi0'
+};
+var request = http.Request('POST', Uri.parse('https://fcm.googleapis.com/fcm/send'));
+request.body = json.encode({
+  "to": "d42S0zDJTR6BhH0Y6aCzXo:APA91bFv-3tE-rKAK48ne6THChgx0EcXfEfAwKqONNGsKm8vkbRID5KUpSSPxVFetHq3SjhwFsQ37_aLEo0BNsYcwH6ZTT1KfDql5-IApUdnLEmdDDJOgNu_5_DJmQIjIeRxWbNTJict",
+  "notification": {
+    "title": "ISI Event",
+    "body": "Salut, vous avez recu un nouveau message de la part de l'ISI, merci de le consulter :) ."
+  }
+});
+request.headers.addAll(headers);
+
+http.StreamedResponse response = await request.send();
+
+if (response.statusCode == 200) {
+  print("teb3ATH");
+  print(await response.stream.bytesToString());
+}
+else {
+  print(response.reasonPhrase);
+}
+
 }
 
 class _AddMessageState extends State<AddMessage> {
@@ -58,7 +88,7 @@ CollectionReference categories =  FirebaseFirestore.instance.collection("categor
 
         await response.update({'imageUrl': imageUrl});
       }
-       
+       sendNotif();
         Navigator.of(context).pushReplacementNamed("getmessages");
       } catch (e) {
         print("Error $e ");
@@ -143,8 +173,7 @@ CollectionReference categories =  FirebaseFirestore.instance.collection("categor
                 },
                 icon: Icon(Icons.exit_to_app))
           ]),
-      body:
-      Container(
+  body: Container(
           padding: const EdgeInsets.all(20),
           child: ListView(children: [
        Form(

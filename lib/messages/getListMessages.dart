@@ -199,6 +199,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application_2/messages/editMessage.dart';
 
+
 class getListMessages extends StatefulWidget {
   const getListMessages({Key? key});
 
@@ -281,83 +282,88 @@ class _getListMessagesState extends State<getListMessages> {
                     } else {
                       cardColor = Color.fromARGB(255, 243, 238, 220);
                     }
-                    return InkWell(
-                      onTap: () {
-                        _showImageDialog(message['imageUrl']);
-                      },
-                      onLongPress: () {
-                        AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.warning,
-                          animType: AnimType.rightSlide,
-                          title: 'Actions',
-                          btnCancelText: 'Supprimer',
-                          btnOkText: 'Modifier',
-                          desc: 'Choisir ce que vous voulez faire',
-                          btnCancelOnPress: () async {
-                            await FirebaseFirestore.instance.collection("messages") .doc(message.id) .delete();
-                            await FirebaseStorage.instance.refFromURL(message['imageUrl']).delete();
-                            Navigator.of(context).pushReplacementNamed("getmessages");
-                          },
-                          btnOkOnPress: () async {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => EditMessage(
-                                docid: message.id,
-                                oldmsg: message,
-                              ),
-                            ));
-                          },
-                        ).show();
-                      },
-                                            child: SingleChildScrollView(
-
-                      child: Card(
-                        color: cardColor,
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          child: Column(
-                            children: [
-                              Image.network(
-                                message['imageUrl'],
-                                height: 100,
-                                width: 100,
-                              ),
-                              Text(
-                                "à : ${message['categorie']}",
-                                style: TextStyle(
-                                  fontSize: 20,
+                    return Card(
+                      color: cardColor,
+                      child: InkWell(
+                        onTap: () {
+                          _showImageDialog(context, message['imageUrl']);
+                        },
+                        onLongPress: () {
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.warning,
+                            animType: AnimType.rightSlide,
+                            title: 'Actions',
+                            btnCancelText: 'Supprimer',
+                            btnOkText: 'Modifier',
+                            desc: 'Choisir ce que vous voulez faire',
+                            btnCancelOnPress: () async {
+                              await FirebaseFirestore.instance
+                                  .collection("messages")
+                                  .doc(message.id)
+                                  .delete();
+                              await FirebaseStorage.instance
+                                  .refFromURL(message['imageUrl'])
+                                  .delete();
+                              Navigator.of(context)
+                                  .pushReplacementNamed("getmessages");
+                            },
+                            btnOkOnPress: () async {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => EditMessage(
+                                  docid: message.id,
+                                  oldmsg: message,
                                 ),
-                                textAlign: TextAlign.center,
-                              ),
-                              Divider(
-                                color: Color.fromARGB(255, 196, 195, 197),
-                              ),
-                              Text(
-                                "${message['objet']}",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                              ));
+                            },
+                          ).show();
+                        },
+                        child: SingleChildScrollView(
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            child: Column(
+                              children: [
+                                Image.network(
+                                  message['imageUrl'],
+                                  height: 100,
+                                  width: 100,
                                 ),
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "${message['corps']}",
-                                style: TextStyle(fontSize: 16),
-                                textAlign: TextAlign.start,
-                              ),
-                              Text(
-                                "${message['date']}",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontStyle: FontStyle.italic,
+                                Text(
+                                  "à : ${message['categorie']}",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
-                                textAlign: TextAlign.end,
-                              ),
-                            ],
+                                Divider(
+                                  color: Color.fromARGB(255, 196, 195, 197),
+                                ),
+                                Text(
+                                  "${message['objet']}",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text(
+                                  "${message['corps']}",
+                                  style: TextStyle(fontSize: 16),
+                                  textAlign: TextAlign.start,
+                                ),
+                                Text(
+                                  "${message['date']}",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                  textAlign: TextAlign.end,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                                            ),
                     );
                   },
                 );
@@ -369,7 +375,7 @@ class _getListMessagesState extends State<getListMessages> {
     );
   }
 
-  void _showImageDialog(String imageUrl) {
+  void _showImageDialog(BuildContext context, String imageUrl) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -385,4 +391,3 @@ class _getListMessagesState extends State<getListMessages> {
     );
   }
 }
-

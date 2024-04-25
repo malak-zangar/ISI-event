@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/User/auth/loginUser.dart';
 import 'package:flutter_application_2/User/auth/signupUser.dart';
@@ -24,6 +25,16 @@ Future<void> main() async {
   );
 
   runApp(const MyApp());
+      getToken();
+
+}
+
+getToken() async {
+  String? mytoken = await FirebaseMessaging.instance.getToken();
+  print("*****************************");
+  print(mytoken);
+    print("*****************************");
+
 }
 
 class MyApp extends StatelessWidget {
@@ -37,7 +48,10 @@ class MyApp extends StatelessWidget {
         print('*************User is signed in!');
       }
     });
+    getToken();
   }
+
+
 
   // This widget is the root of your application.
   @override
@@ -49,7 +63,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-    /*  home: FirebaseAuth.instance.currentUser == null
+     /* home: FirebaseAuth.instance.currentUser == null
           ? Login()
           : Home(),*/
 
