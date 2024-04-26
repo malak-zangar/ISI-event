@@ -21,7 +21,6 @@ class CustomTextForm extends StatelessWidget {
         obscureText: sec,
         controller: mycontroller,
         decoration: InputDecoration(
-          // icon:const Icon(Icons.lock),
           suffixIcon: IconButton(
             padding: const EdgeInsetsDirectional.only(end: 12.0),
             icon: sec
@@ -30,7 +29,6 @@ class CustomTextForm extends StatelessWidget {
             onPressed: () {},
           ),
           hintText: hinttext,
-
           hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
           contentPadding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
           filled: true,
@@ -62,23 +60,4 @@ class CustomTextForm extends StatelessWidget {
       );
     }
   }
-  /*  @override
-  Widget build(BuildContext context) {
-    return PasswordField(
-      controller: mycontroller ,
-      decoration: InputDecoration(
-          hintText: hinttext,
-          hintStyle:  TextStyle(fontSize: 14, color: Colors.grey),
-          contentPadding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
-          filled: true,
-          fillColor: Color.fromARGB(255, 228, 216, 230),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide:
-                  BorderSide(color: Color.fromARGB(255, 73, 15, 82))),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(50),
-              borderSide: BorderSide(color: Colors.grey))),
-    );
-  }*/
 }

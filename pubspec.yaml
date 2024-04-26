@@ -46,6 +46,7 @@ dependencies:
   passwordfield: ^0.2.0
   awesome_dialog: ^3.2.0
   image_picker: ^1.1.0
+  http: ^1.2.1
 
 dev_dependencies:
   flutter_test:

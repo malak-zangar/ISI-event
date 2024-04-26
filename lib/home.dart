@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -9,10 +10,34 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
+  var displayName = FirebaseAuth.instance.currentUser!.email!.split("@").first;
 
   @override
   Widget build(BuildContext context) {
+    //app en background
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      if (message.data['Type'] == "message") {
+        Navigator.of(context).pushReplacementNamed("getmessages");
+      } else if (message.data['Type'] == "categorie") {
+        Navigator.of(context).pushReplacementNamed("getcategory");
+      }
+    });
+
+//app terminée
+    getInit() async {
+      RemoteMessage? initialMessage =
+          await FirebaseMessaging.instance.getInitialMessage();
+      if (initialMessage != null) {
+        if (initialMessage.data['Type'] == "message") {
+          Navigator.of(context).pushReplacementNamed("getmessages");
+        } else if (initialMessage.data['Type'] == "categorie") {
+          Navigator.of(context).pushReplacementNamed("getcategory");
+        }
+      }
+    }
+
+    getInit();
+
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -31,21 +56,22 @@ class _HomeState extends State<Home> {
           child: ListView(children: [
             Form(
               child: Column(
-
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-     Container(height: 20,),
-
-                  const Text(
-                    'Bienvenue dans votre espace',      
-                      textAlign: TextAlign.center,        
-                          style: TextStyle(
+                  Container(
+                    height: 20,
+                  ),
+                  Text(
+                    'Bienvenue dans votre espace administrateur $displayName',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 160, 134, 206)),
                   ),
-              Container(height: 30,),
-
+                  Container(
+                    height: 30,
+                  ),
                   InkWell(
                     child: Card(
                       child: Container(
@@ -55,7 +81,10 @@ class _HomeState extends State<Home> {
                             "images/categorie.png",
                             height: 120,
                           ),
-                          Text("Catégories",selectionColor:Colors.deepPurpleAccent,),
+                          Text(
+                            "Catégories",
+                            selectionColor: Colors.deepPurpleAccent,
+                          ),
                         ]),
                       ),
                     ),
@@ -63,8 +92,9 @@ class _HomeState extends State<Home> {
                       Navigator.of(context).pushReplacementNamed("getcategory");
                     },
                   ),
-                 Container(height: 30,),
-
+                  Container(
+                    height: 30,
+                  ),
                   InkWell(
                     child: Card(
                       child: Container(
@@ -74,7 +104,10 @@ class _HomeState extends State<Home> {
                             "images/msg.png",
                             height: 120,
                           ),
-                          Text("Messages",selectionColor:Colors.deepPurpleAccent,)
+                          Text(
+                            "Messages",
+                            selectionColor: Colors.deepPurpleAccent,
+                          )
                         ]),
                       ),
                     ),

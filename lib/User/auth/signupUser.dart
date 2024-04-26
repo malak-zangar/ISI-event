@@ -113,7 +113,8 @@ class _SignupUserState extends State<SignupUser> {
                               email: email.text,
                               password: password.text,
                             );
-                            Navigator.of(context).pushReplacementNamed('loginuser');
+                            Navigator.of(context)
+                                .pushReplacementNamed('loginuser');
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'email-already-in-use') {
                               AwesomeDialog(
@@ -161,8 +162,6 @@ class _SignupUserState extends State<SignupUser> {
               ),
             ),
           ])),
-
-      //  body: Container(),
     );
   }
 }

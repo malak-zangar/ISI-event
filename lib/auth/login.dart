@@ -40,7 +40,6 @@ class _LoginState extends State<Login> {
                   ),
                   const Text(
                     'Authentification',
-                    // style: Theme.of(context).textTheme.headlineMedium,
                     style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -151,7 +150,6 @@ class _LoginState extends State<Login> {
               ),
             ),
           ])),
-      //  body: Container(),
     );
   }
 }

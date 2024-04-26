@@ -40,7 +40,6 @@ class _LoginUserState extends State<LoginUser> {
                   ),
                   const Text(
                     'Authentification',
-                    // style: Theme.of(context).textTheme.headlineMedium,
                     style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -105,7 +104,8 @@ class _LoginUserState extends State<LoginUser> {
                                 .signInWithEmailAndPassword(
                                     email: email.text, password: password.text);
 
-                            Navigator.of(context).pushReplacementNamed('homeuser');
+                            Navigator.of(context)
+                                .pushReplacementNamed('homeuser');
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'user-not-found') {
                               AwesomeDialog(
@@ -151,7 +151,6 @@ class _LoginUserState extends State<LoginUser> {
               ),
             ),
           ])),
-      //  body: Container(),
     );
   }
 }

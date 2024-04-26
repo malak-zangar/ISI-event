@@ -85,5 +85,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'malak-project-isi.appspot.com',
     measurementId: 'G-MPGHS5BCN9',
   );
-
 }
