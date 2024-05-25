@@ -41,48 +41,48 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBeDLO8nyCuSNceYfp1gE2pipJEWLaY7nc',
-    appId: '1:504895233759:web:dffc7be8bcd0c2a6e5536a',
-    messagingSenderId: '504895233759',
-    projectId: 'malak-project-isi',
-    authDomain: 'malak-project-isi.firebaseapp.com',
-    storageBucket: 'malak-project-isi.appspot.com',
-    measurementId: 'G-F05TXZHVYY',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    authDomain: '',
+    storageBucket: '',
+    measurementId: '',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC6FqSRSjwpTURlgFOfhrtswS1a9vrNKBw',
-    appId: '1:504895233759:android:0bad9415a3812defe5536a',
-    messagingSenderId: '504895233759',
-    projectId: 'malak-project-isi',
-    storageBucket: 'malak-project-isi.appspot.com',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    storageBucket: '',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCl5PEQDhmchzaduA1mWpeKo0amQEyklDM',
-    appId: '1:504895233759:ios:bd5d4057d06c6d39e5536a',
-    messagingSenderId: '504895233759',
-    projectId: 'malak-project-isi',
-    storageBucket: 'malak-project-isi.appspot.com',
-    iosBundleId: 'com.example.flutterApplication2',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    storageBucket: '',
+    iosBundleId: '',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCl5PEQDhmchzaduA1mWpeKo0amQEyklDM',
-    appId: '1:504895233759:ios:bd5d4057d06c6d39e5536a',
-    messagingSenderId: '504895233759',
-    projectId: 'malak-project-isi',
-    storageBucket: 'malak-project-isi.appspot.com',
-    iosBundleId: 'com.example.flutterApplication2',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    storageBucket: '',
+    iosBundleId: '',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBeDLO8nyCuSNceYfp1gE2pipJEWLaY7nc',
-    appId: '1:504895233759:web:5f5254059546dbdbe5536a',
-    messagingSenderId: '504895233759',
-    projectId: 'malak-project-isi',
-    authDomain: 'malak-project-isi.firebaseapp.com',
-    storageBucket: 'malak-project-isi.appspot.com',
-    measurementId: 'G-MPGHS5BCN9',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    authDomain: '',
+    storageBucket: '',
+    measurementId: '',
   );
 }
